@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Registration & Payment | GoStreak</title>
+    <link rel="stylesheet" href="joinformstylr.css">
+    <style>
+        .submit-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .qr-code {
+            max-width: 200px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 2px solid #3b82f6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <center>
+            <h1 style="color: #3b82f6; font-family: 'Space Grotesk', sans-serif;">GoStreak</h1>
+        </center>
+        <h2>Annual Joining Form</h2>
+        <p class="subtitle">Complete your ₹1999 payment and fill in the details below.</p>
+        <p class="important-note">Note: Ensure your LeetCode credentials are accurate for streak verification.</p>
+
+        <div class="payment-section" style="text-align: center;">
+            <p><strong>Step 1: Scan to Pay (₹1,999)</strong></p>
+            <img src="your-qr-code-link.png" alt="Payment QR Code" class="qr-code">
+            <p class="payment-note" style="font-weight: bold; color: #fff;">Plan: Annual Deployment</p>
+        </div>
+
+        <hr>
+
+        <form id="gostreak-form">
+
+            <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" name="name" id="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Gmail Address *</label>
+                <input type="email" name="email" id="email" placeholder="example@gmail.com" required>
+            </div>
+
+            <div class="form-group-row" style="display: flex; gap: 10px;">
+                <div class="form-group" style="flex: 1;">
+                    <label for="lt-user">LeetCode Username *</label>
+                    <input type="text" name="leetcode_user" id="lt-user" required>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="lt-pass">LeetCode Password *</label>
+                    <input type="password" name="leetcode_pass" id="lt-pass" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ref-id">Reference ID (Optional)</label>
+                <input type="text" name="reference_id" id="ref-id" placeholder="Enter ID if any">
+            </div>
+
+            <div class="form-group">
+                <label for="trans-id">Transaction ID *</label>
+                <input type="text" name="transaction_id" id="trans-id" placeholder="UTR / Transaction No." required>
+            </div>
+
+            <div class="form-group">
+                <label for="language">Preferred Language *</label>
+                <input type="text" name="language" id="language" placeholder="e.g., Python, Java" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact Number *</label>
+                <input type="tel" name="contact" id="contact" placeholder="Enter your contact number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="screenshot">Upload Payment Screenshot *</label>
+                <input type="file" id="screenshot" accept="image/*" required>
+            </div>
+
+            <button type="submit" id="submit-btn" class="submit-btn" style="width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px;">
+                Submit Annual Registration
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Updated Deployment URL for Annual Spreadsheet (Version 1)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZiCEx9BXJVABshNM9N7JgTDHh8Jp3NHVAkxrEL0M0PBgiYF1MtqzgTCNf_mAt_Acs/exec';
+        
+        const form = document.getElementById('gostreak-form');
+        const btn = document.getElementById('submit-btn');
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('screenshot');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert("Please upload the payment screenshot.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "Syncing with Command Node...";
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            reader.onload = function () {
+                // Convert image to base64 string
+                const base64Data = reader.result.split(',')[1];
+                
+                // Collect form data
+                const formData = new FormData(form);
+                const queryParams = new URLSearchParams();
+
+                for (const pair of formData.entries()) {
+                    queryParams.append(pair[0], pair[1]);
+                }
+
+                // Add image details for Google Drive upload
+                queryParams.append("image_data", base64Data);
+                queryParams.append("image_type", file.type);
+                queryParams.append("image_name", file.name);
+
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: queryParams.toString()
+                })
+                .then(() => {
+                    alert("Annual Registration Successful! Your details and screenshot have been secured in our database.");
+                    form.reset();
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Submission failed. Please check your connection.");
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = "Submit Annual Registration";
+                });
+            };
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Terms & Conditions | GOSTREAK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            indigo: "#818cf8",
+                            dark: "#0a0a0b",
+                            card: "#121214",
+                            border: "#27272a"
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .legal-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #818cf8;
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .legal-content p, .legal-content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+            color: #a1a1aa;
+        }
+        
+        .legal-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-dark text-gray-300 font-sans selection:bg-brand-indigo/30">
+
+    <nav class="p-6 border-b border-brand-border bg-brand-dark/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="font-display font-bold text-white tracking-tighter flex items-center gap-2">
+                <span class="w-2 h-2 bg-brand-indigo rounded-full"></span>
+                GoStreak
+            </a>
+            <a href="index.html"
+                class="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-brand-indigo transition-colors">Return
+                to Home</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-20">
+        <div class="mb-16 border-l-4 border-brand-indigo pl-6">
+            <h1 class="text-4xl md:text-5xl font-display font-bold text-white tracking-tighter mb-2">Terms of Service
+            </h1>
+            <p class="text-sm text-gray-500 uppercase tracking-widest font-semibold">Last Updated: April 2026</p>
+        </div>
+
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-8 md:p-12 shadow-2xl legal-content">
+
+            <section>
+                <h3>1. Account Security</h3>
+                <ul>
+                    <li>Users are responsible for maintaining the confidentiality of their username and password.</li>
+                    <li>We take appropriate measures to ensure that login credentials are securely stored and protected.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>2. Daily Streak</h3>
+                <ul>
+                    <li>A daily streak is maintained based on consistent user participation.</li>
+                    <li>Users must remain active and engaged to continue their streak without interruption.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>3. Daily Content Delivery</h3>
+                <p>Users will receive a daily email containing:</p>
+                <ul>
+                    <li>Problem descriptions</li>
+                    <li>Code explanations</li>
+                </ul>
+                <p>These are designed to help users solve real-world problems effectively.</p>
+            </section>
+
+            <section>
+                <h3>4. Usage of Content</h3>
+                <ul>
+                    <li>Users are encouraged to refer to the daily descriptions and materials for learning and problem-solving purposes.</li>
+                </ul>
+            </section>
+
+            <div class="mt-8 mb-4 border-b border-brand-border/50 pb-2">
+                <h2 class="text-2xl font-display font-bold text-white tracking-tight">Plan and Billing</h2>
+            </div>
+
+            <section>
+                <h3>5. Payment Model</h3>
+                <ul>
+                    <li>The service operates on a prepaid basis only.</li>
+                    <li>Users must recharge their plan in advance to continue using the service.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>6. Notifications</h3>
+                <ul>
+                    <li>All important updates, including payment reminders and service notifications, will be sent via email.</li>
+                </ul>
+            </section>
+            
+            <section>
+                <h3>7. Streak Policy on Non-Renewal</h3>
+                <p>If a user fails to recharge their plan before expiry, their streak will be affected. However, as part of our loyalty policy:</p>
+                <ul>
+                    <li>The streak will be preserved for up to 2 days after plan expiry.</li>
+                    <li>If the plan is not renewed within this grace period, the streak will be permanently reset.</li>
+                </ul>
+            </section>
+
+            <div class="mt-12 p-6 bg-brand-indigo/5 border border-brand-indigo/20 rounded-xl">
+                <p class="text-xs text-brand-indigo font-bold uppercase tracking-widest mb-2">Legal Disclaimer</p>
+                <p class="text-sm text-gray-400 italic m-0">
+                    By accessing and using GoStreak, you acknowledge and agree to abide by these Terms of Service. Failure to comply may result in account termination.
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <p class="text-sm text-gray-600">Questions regarding these terms?
+                <a href="mailto:support@codestreak.io"
+                    class="text-brand-indigo hover:underline font-semibold ml-1">Contact Legal Dept</a>
+            </p>
+        </div>
+    </main>
+
+</body>
+
+</html>

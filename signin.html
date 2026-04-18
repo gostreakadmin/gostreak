@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal Login | GoStreak</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { indigo: "#69daff", dark: "#060e20", card: "#091328", border: "#192540" }
+                    },
+                    fontFamily: { display: ['Space Grotesk', 'sans-serif'], sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="bg-brand-dark text-gray-300 font-sans min-h-screen flex flex-col items-center justify-center p-4 md:p-6 selection:bg-brand-indigo/30">
+
+    <div id="login-panel"
+        class="w-full max-w-md bg-brand-card border border-brand-border rounded-2xl p-8 shadow-2xl transition-all duration-300">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-display font-bold text-white tracking-tighter">GoStreak</h1>
+            <h2 class="text-xl font-display text-brand-indigo tracking-tighter">System Access</h2>
+            <p class="text-sm text-gray-500 mt-2">Select your portal to initialize sync.</p>
+        </div>
+
+        <div class="flex gap-2 mb-6 bg-[#060e20] p-1 rounded-lg border border-brand-border">
+            <button type="button" onclick="setRole('user')" id="tab-user"
+                class="flex-1 py-2 text-sm font-bold rounded-md bg-brand-indigo text-[#060e20] transition-colors shadow-lg shadow-brand-indigo/20">User</button>
+            <button type="button" onclick="setRole('referrer')" id="tab-referrer"
+                class="flex-1 py-2 text-sm font-bold rounded-md text-gray-400 hover:text-white transition-colors">Referrer</button>
+            <button type="button" onclick="setRole('admin')" id="tab-admin"
+                class="flex-1 py-2 text-sm font-bold rounded-md text-gray-400 hover:text-white transition-colors">Admin</button>
+        </div>
+
+        <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+            <input type="hidden" id="role-input" value="user">
+
+            <div>
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Username</label>
+                <input type="text" id="username" required
+                    class="w-full bg-[#060e20] border border-brand-border text-white rounded-lg px-4 py-3 focus:outline-none focus:border-brand-indigo transition-colors"
+                    placeholder="Enter username">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Password</label>
+                <input type="password" id="password" required
+                    class="w-full bg-[#060e20] border border-brand-border text-white rounded-lg px-4 py-3 focus:outline-none focus:border-brand-indigo transition-colors"
+                    placeholder="••••••••">
+            </div>
+
+            <button type="submit" id="submit-btn"
+                class="w-full mt-4 bg-brand-indigo hover:bg-[#4bc2e8] text-[#060e20] font-bold py-3 rounded-lg transition-all active:scale-95">
+                AUTHENTICATE
+            </button>
+            <p id="error-msg" class="text-red-500 text-xs text-center font-bold hidden mt-4 bg-red-500/10 py-2 rounded">
+                Invalid credentials or connection error.</p>
+        </form>
+
+        <a href="index.html" class="block mt-3">
+            <button type="button"
+                class="w-full py-3 bg-transparent border border-brand-border text-gray-400 hover:text-white hover:bg-[#192540] font-bold rounded-lg transition-all active:scale-95 text-sm uppercase tracking-widest">
+                Return to Home
+            </button>
+        </a>
+    </div>
+
+    <div id="dash-user" class="hidden w-full max-w-4xl bg-brand-card border border-brand-border rounded-2xl p-6 md:p-8 shadow-2xl transition-all duration-300">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-brand-border pb-4 gap-4">
+            <div>
+                <h1 class="text-2xl font-display font-bold text-white flex items-center gap-2">
+                    <span class="text-brand-indigo">GoStreak</span> | Coder Dashboard
+                </h1>
+                <p class="text-xs text-gray-500 mt-1 uppercase tracking-widest">Consistency Maintenance Portal</p>
+            </div>
+            <button onclick="logout()" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500/20 font-bold text-xs uppercase tracking-wider transition-colors shrink-0">
+                Logout
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <div class="bg-[#060e20] border border-brand-border p-6 rounded-xl relative overflow-hidden flex flex-col justify-center">
+                <div class="absolute -right-4 -top-8 opacity-5 text-9xl pointer-events-none">🔥</div>
+                
+                <div class="relative z-10">
+                    <p class="text-xs text-gray-500 font-bold uppercase tracking-widest">Live LeetCode Streak</p>
+                    <p id="u-streak" class="text-5xl font-display font-bold text-orange-400 mt-2 flex items-center gap-2 animate-pulse">
+                        Syncing...
+                    </p>
+                    <p class="text-sm text-gray-400 mt-2">Current consecutive days.</p>
+                </div>
+            </div>
+
+            <div class="bg-[#060e20] border border-brand-border p-6 rounded-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-2">
+                        <p class="text-xs text-gray-500 font-bold uppercase tracking-widest">Subscription Tier</p>
+                        <span id="u-plan-type" class="px-2 py-1 bg-brand-indigo/10 text-brand-indigo text-[10px] font-bold uppercase tracking-widest rounded border border-brand-indigo/20">
+                            Monthly
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-400">Expires on:</p>
+                    <p id="u-expiry" class="text-2xl font-display font-bold text-white mt-1">--</p>
+                </div>
+                
+                <a href="pricing.html" class="block mt-6">
+                    <button class="w-full bg-brand-indigo/10 border border-brand-indigo/30 text-brand-indigo py-2.5 rounded-lg font-bold text-sm hover:bg-brand-indigo/20 transition-colors">
+                        Buy New Subscription
+                    </button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="dash-referrer"
+        class="hidden w-full max-w-5xl bg-brand-card border border-brand-border rounded-2xl p-6 md:p-8 shadow-2xl transition-all duration-300">
+        <div class="flex justify-between items-center mb-8 border-b border-brand-border pb-4">
+            <h1 class="text-2xl font-display font-bold text-white">GoStreak</h1>
+            <h2 class="text-2xl font-display font-bold text-white">Partner Portal</h2>
+            <button onclick="logout()"
+                class="text-xs text-red-400 hover:text-red-300 font-bold uppercase tracking-wider">Logout</button>
+        </div>
+        <div
+            class="mb-6 bg-brand-indigo/10 border border-brand-indigo/30 p-4 rounded-xl flex justify-between items-center">
+            <span class="text-sm text-gray-400 font-medium">Your Referral ID:</span>
+            <span id="r-id" class="font-mono text-brand-indigo font-bold text-xl tracking-wider">--</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-[#060e20] border border-brand-border p-6 rounded-xl">
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-widest">Total Referrals</p>
+                <p id="r-total" class="text-4xl font-display font-bold text-white mt-2">--</p>
+            </div>
+            <div class="bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-xl">
+                <p class="text-xs text-emerald-500 font-bold uppercase tracking-widest">Earnings Paid</p>
+                <p id="r-paid" class="text-4xl font-display font-bold text-emerald-400 mt-2">--</p>
+            </div>
+            <div class="bg-orange-500/10 border border-orange-500/20 p-6 rounded-xl">
+                <p class="text-xs text-orange-500 font-bold uppercase tracking-widest">Pending Payout</p>
+                <p id="r-pending" class="text-4xl font-display font-bold text-orange-400 mt-2">--</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="dash-admin"
+        class="hidden w-full max-w-[95vw] h-[90vh] bg-brand-card border border-brand-border rounded-2xl p-6 shadow-2xl transition-all duration-300 flex flex-col">
+        <div class="flex justify-between items-center mb-4 border-b border-brand-border pb-4 shrink-0">
+            <div>
+                <h1 class="text-2xl font-display font-bold text-white">GoStreak</h1>
+                <h2 class="text-2xl font-display font-bold text-white">Admin Dashboard</h2>
+                <h3 class="text-2xl font-display font-bold text-white">Master Command Node</h3>
+                <p class="text-xs text-gray-500 mt-1 uppercase tracking-widest">Live Database Editor</p>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://docs.google.com/spreadsheets/d/1fCe1L0jaD4dt1Qzf5QpQ3vA9FVq6qWc4pwwcSVDORPU/edit?usp=sharing"
+                    target="_blank"
+                    class="text-xs text-brand-indigo hover:text-white font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span class="text-[16px]">&#8599;</span> Open Native Sheet
+                </a>
+                <button onclick="logout()"
+                    class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500/20 font-bold text-xs uppercase tracking-wider transition-colors">Terminate
+                    Session</button>
+            </div>
+        </div>
+
+        <div class="w-full flex-grow bg-[#060e20] rounded-xl overflow-hidden border border-brand-border relative">
+            <div class="absolute inset-0 flex items-center justify-center -z-10 text-gray-600 italic text-sm">
+                Loading encrypted database connection...
+            </div>
+            <iframe
+                src="https://docs.google.com/spreadsheets/d/1fCe1L0jaD4dt1Qzf5QpQ3vA9FVq6qWc4pwwcSVDORPU/edit?usp=sharing&widget=true&headers=false"
+                class="w-full h-full border-0 z-10 relative bg-white" title="GoStreak Database">
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        // --- UPDATED GOOGLE APPS SCRIPT WEB APP URL ---
+        const API_URL = "https://script.google.com/macros/s/AKfycbwwKAH3QRqfzePzJR3t3sTyGrrMoSBdDSR4DhmQITEhgBe0DZHIWWELjcSmNu6iRm5t/exec";
+
+        function setRole(role) {
+            document.getElementById('role-input').value = role;
+
+            ['user', 'referrer', 'admin'].forEach(r => {
+                const btn = document.getElementById(`tab-${r}`);
+                btn.className = "flex-1 py-2 text-sm font-bold rounded-md text-gray-400 hover:bg-brand-border/50 hover:text-white transition-colors";
+            });
+
+            const activeBtn = document.getElementById(`tab-${role}`);
+            activeBtn.className = "flex-1 py-2 text-sm font-bold rounded-md bg-brand-indigo text-[#060e20] transition-colors shadow-lg shadow-brand-indigo/20";
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const role = document.getElementById('role-input').value;
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const btn = document.getElementById('submit-btn');
+            const error = document.getElementById('error-msg');
+
+            if (!user || !pass) return;
+
+            btn.innerText = "AUTHENTICATING...";
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+            error.classList.add('hidden');
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify({ role: role, username: user, password: pass })
+                });
+
+                const data = await response.json();
+
+                if (data && data.success) {
+                    showDashboard(data);
+                } else {
+                    error.innerText = data.message || "Invalid credentials.";
+                    error.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error("Login Error:", err);
+                error.innerText = "Connection failed. Please verify API URL and network.";
+                error.classList.remove('hidden');
+            } finally {
+                btn.innerText = "AUTHENTICATE";
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
+
+        function showDashboard(data) {
+            document.getElementById('login-panel').classList.add('hidden');
+
+            if (data.role === 'user') {
+                document.getElementById('dash-user').classList.remove('hidden');
+                document.getElementById('u-plan-type').innerText = data.planType || "Unspecified";
+
+                document.getElementById('u-streak').innerHTML = "Syncing...";
+                document.getElementById('u-streak').classList.add('animate-pulse');
+
+                if (data.leetcodeUsername) {
+                    fetchLiveStreak(data.leetcodeUsername);
+                } else {
+                    document.getElementById('u-streak').innerText = "No LC Account Linked";
+                    document.getElementById('u-streak').classList.remove('animate-pulse');
+                }
+
+                try {
+                    if (data.planExpiry) {
+                        const dateObj = new Date(data.planExpiry);
+                        if (!isNaN(dateObj.getTime())) {
+                            document.getElementById('u-expiry').innerText = dateObj.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+                        } else {
+                            document.getElementById('u-expiry').innerText = data.planExpiry;
+                        }
+                    } else {
+                        document.getElementById('u-expiry').innerText = "Not set";
+                    }
+                } catch (e) {
+                    document.getElementById('u-expiry').innerText = data.planExpiry;
+                }
+            }
+            else if (data.role === 'referrer') {
+                document.getElementById('dash-referrer').classList.remove('hidden');
+                document.getElementById('r-id').innerText = data.refId || "--";
+                document.getElementById('r-total').innerText = data.totalReferred || "0";
+                document.getElementById('r-paid').innerText = data.totalPaid || "$0.00";
+                document.getElementById('r-pending').innerText = data.pendingPaid || "$0.00";
+            }
+            else if (data.role === 'admin') {
+                document.getElementById('dash-admin').classList.remove('hidden');
+                document.body.classList.remove('justify-center');
+            }
+        }
+
+        async function fetchLiveStreak(lcUser) {
+            const streakEl = document.getElementById('u-streak');
+            try {
+                const calRes = await fetch(`https://alfa-leetcode-api.onrender.com/${lcUser}/calendar`);
+                if (!calRes.ok) throw new Error("API Failure");
+
+                const calData = await calRes.json();
+                let parsedCalendar = {};
+                if (calData.submissionCalendar) {
+                    parsedCalendar = JSON.parse(calData.submissionCalendar);
+                }
+
+                const activeDays = new Set();
+                const timestamps = Object.keys(parsedCalendar).map(Number);
+
+                timestamps.forEach(ts => {
+                    activeDays.add(Math.floor(ts / 86400));
+                });
+
+                const sortedDays = Array.from(activeDays).sort((a, b) => a - b);
+                let currentStreak = 0;
+
+                if (sortedDays.length > 0) {
+                    currentStreak = 1;
+
+                    for (let i = sortedDays.length - 1; i > 0; i--) {
+                        if (sortedDays[i] - sortedDays[i - 1] === 1) {
+                            currentStreak++;
+                        } else {
+                            break;
+                        }
+                    }
+
+                    const todayNumber = Math.floor(Date.now() / 1000 / 86400);
+                    const lastActiveDay = sortedDays[sortedDays.length - 1];
+
+                    if (todayNumber - lastActiveDay > 1) {
+                        currentStreak = 0;
+                    }
+                }
+
+                streakEl.classList.remove('animate-pulse');
+                streakEl.innerHTML = `${currentStreak} <span class="text-4xl drop-shadow-lg">🔥</span>`;
+
+            } catch (e) {
+                console.error("Streak sync failed:", e);
+                streakEl.classList.remove('animate-pulse');
+                streakEl.innerText = "API Error";
+                streakEl.classList.replace('text-orange-400', 'text-red-500');
+            }
+        }
+
+        function logout() {
+            document.getElementById('dash-user').classList.add('hidden');
+            document.getElementById('dash-referrer').classList.add('hidden');
+            document.getElementById('dash-admin').classList.add('hidden');
+
+            document.getElementById('login-panel').classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('error-msg').classList.add('hidden');
+            document.body.classList.add('justify-center');
+        }
+
+        window.onload = () => setRole('user');
+    </script>
+</body>
+
+</html>

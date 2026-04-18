@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pricing | GoStreak</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#69daff",
+                        "surface-variant": "#192540",
+                        "on-surface-variant": "#a3aac4",
+                        "inverse-surface": "#faf8ff",
+                        "primary-container": "#00cffc",
+                        "on-secondary": "#475266",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-tertiary-fixed-variant": "#583300",
+                        "tertiary-fixed": "#fe9d00",
+                        "on-error": "#490006",
+                        "surface-container-low": "#091328",
+                        "tertiary-fixed-dim": "#ec9100",
+                        "on-primary-container": "#004050",
+                        "on-primary": "#004a5d",
+                        "on-tertiary": "#593400",
+                        "on-secondary-fixed-variant": "#515c70",
+                        "surface-bright": "#1f2b49",
+                        "secondary-fixed-dim": "#cad5ed",
+                        "primary-fixed-dim": "#00c0ea",
+                        "outline": "#6d758c",
+                        "error-container": "#9f0519",
+                        "inverse-primary": "#006880",
+                        "error": "#ff716c",
+                        "surface": "#060e20",
+                        "on-primary-fixed": "#002a35",
+                        "background": "#060e20",
+                        "secondary-dim": "#cad5ed",
+                        "inverse-on-surface": "#4d556b",
+                        "on-tertiary-container": "#4c2b00",
+                        "outline-variant": "#40485d",
+                        "surface-container-high": "#141f38",
+                        "on-primary-fixed-variant": "#004a5c",
+                        "on-background": "#dee5ff",
+                        "primary-dim": "#00c0ea",
+                        "on-tertiary-fixed": "#2b1600",
+                        "tertiary-dim": "#ec9100",
+                        "surface-dim": "#060e20",
+                        "secondary-container": "#3c475a",
+                        "surface-container": "#0f1930",
+                        "surface-container-highest": "#192540",
+                        "on-surface": "#dee5ff",
+                        "surface-tint": "#69daff",
+                        "tertiary-container": "#fe9d00",
+                        "primary-fixed": "#00cffc",
+                        "error-dim": "#d7383b",
+                        "on-secondary-container": "#c5d1e8",
+                        "on-error-container": "#ffa8a3",
+                        "on-secondary-fixed": "#354053",
+                        "tertiary": "#ffb155",
+                        "secondary": "#d8e3fb",
+                        "surface-container-lowest": "#000000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+    <script>
+        function requestNotificationPermission() {
+            // Check if the browser supports notifications
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notifications.");
+                return;
+            }
+
+            // Request permission
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    console.log("Notification permission granted.");
+                    // Optional: Show a test notification
+                    new Notification("CODESTREAK", {
+                        body: "Notifications are now active!",
+                        icon: "https://your-logo-url.png"
+                    });
+                } else if (permission === "denied") {
+                    console.log("Notification permission denied.");
+                }
+            });
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #69daff 0%, #00cffc 100%);
+        }
+
+        .tertiary-glow {
+            box-shadow: 0px 0px 12px #ffb155;
+        }
+
+        body {
+            background-color: #060e20;
+            color: #dee5ff;
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-primary selection:text-on-primary-fixed">
+    <!-- Top Navigation -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-[#060e20]/80 backdrop-blur-md bg-gradient-to-b from-[#091328] to-transparent">
+        <div class="flex items-center justify-between px-8 py-4 w-full max-w-screen-2xl mx-auto">
+            <div class="text-2xl font-bold tracking-tighter text-[#69daff] font-headline"><a
+                    href="pricing.html">GoStreak</a></div>
+            <div class="hidden md:flex items-center space-x-8 font-label text-[0.6875rem] uppercase tracking-[0.05em]">
+                <a class="text-slate-400 hover:text-white transition-colors" href="index.html">Home</a>
+                <a class="text-slate-400 hover:text-white transition-colors" href="login.html">Dashboard</a>
+                <a class="text-slate-400 hover:text-white transition-colors" href="dailyproblem.html">Today Problem</a>
+                <a class="text-[#69daff] border-b-2 border-[#69daff] pb-1" href="pricing.html">Pricing</a>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-4 text-on-surface-variant">
+                    <button onclick="requestNotificationPermission()"
+                        class="p-2 text-slate-400 hover:bg-[#1f2b49] rounded-md transition-all active:scale-95 duration-150">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <span
+                        class="material-symbols-outlined hover:text-primary cursor-pointer transition-all active:scale-95">settings</span>
+                </div><a href="login.html">
+                    <button
+                        class="bg-[#1f2b49] hover:bg-[#192540] text-primary font-label px-6 py-2 rounded-xl transition-all active:scale-95 duration-150">
+                        Sign In
+                    </button></a>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+        <!-- Hero Section -->
+        <header class="text-center mb-24 max-w-3xl mx-auto">
+            <h1
+                class="font-headline text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-on-surface to-primary">
+                Unleash Your Code Momentum.
+            </h1>
+            <p class="font-body text-xl text-on-surface-variant leading-relaxed">
+                Choose the fuel for your engineering career. Professional tools for builders who never break their flow.
+            </p>
+        </header>
+        <!-- Pricing Bento Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <!-- Monthly Plan -->
+            <div class="lg:col-span-5 bg-surface-container-low p-10 rounded-xl relative overflow-hidden group">
+                <div class="relative z-10">
+                    <h3 class="font-label text-[0.6875rem] uppercase tracking-[0.1em] text-on-surface-variant mb-4">Solo
+                        Developer</h3>
+                    <div class="flex items-baseline mb-8">
+                        <span class="font-headline text-5xl font-bold">199</span>
+                        <span class="font-body text-on-surface-variant ml-2">/billed monthly</span>
+                    </div>
+                    <ul class="space-y-6 mb-12">
+                        <li class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-primary text-xl">terminal</span>
+                            <span class="font-body text-on-surface">Unlimited code challenges</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-primary text-xl">local_fire_department</span>
+                            <span class="font-body text-on-surface">Daily streak tracking</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-primary text-xl">database</span>
+                            <span class="font-body text-on-surface">System design blueprints</span>
+                        </li>
+                        <li class="flex items-center space-x-3 text-on-surface-variant/50 line-through">
+                            <span class="material-symbols-outlined text-xl">workspace_premium</span>
+                            <span class="font-body">1-on-1 career coaching</span>
+                        </li>
+                    </ul><a href="joinform199.html">
+                        <button
+                            class="w-full py-4 border border-outline-variant/15 text-primary hover:bg-surface-bright transition-all duration-300 rounded-xl font-label uppercase tracking-widest text-[0.6875rem]">
+                            Start Learning
+                        </button></a>
+                </div>
+            </div>
+            <!-- Yearly Plan (Featured) -->
+            <div
+                class="lg:col-span-7 bg-surface-container p-1 pt-1 rounded-xl relative overflow-hidden group kinetic-gradient shadow-2xl">
+                <div
+                    class="bg-surface-container p-10 rounded-xl h-full flex flex-col justify-between relative overflow-hidden">
+                    <!-- Glassy Background Decal -->
+                    <div
+                        class="absolute -right-20 -top-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700">
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span
+                                    class="bg-tertiary text-on-tertiary-fixed font-label text-[0.625rem] px-3 py-1 rounded-full uppercase tracking-tighter tertiary-glow mb-4 inline-block">
+                                    Best Value • Save ~16%
+                                </span>
+                                <h3 class="font-label text-[0.6875rem] uppercase tracking-[0.1em] text-primary mb-2">
+                                    Elite Engineering</h3>
+                            </div>
+                            <span class="material-symbols-outlined text-tertiary text-4xl"
+                                style="font-variation-settings: 'FILL' 1;">star</span>
+                        </div>
+                        <div class="flex items-baseline mb-8">
+                            <span class="font-headline text-7xl font-extrabold tracking-tighter">1,999</span>
+                            <span class="font-body text-on-surface-variant ml-3 text-lg">/ billed yearly</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-12">
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-primary text-xl">all_inclusive</span>
+                                <span class="font-body text-on-surface">Everything in Monthly</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-primary text-xl">psychology</span>
+                                <span class="font-body text-on-surface">Advanced AI Debugger</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-tertiary text-xl">workspace_premium</span>
+                                <span class="font-body text-on-surface">Premium Career Roadmap</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-primary text-xl">groups</span>
+                                <span class="font-body text-on-surface">Exclusive Discord Mastermind</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-primary text-xl">cloud_done</span>
+                                <span class="font-body text-on-surface">Resume Review by Lead Devs</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-primary text-xl">bolt</span>
+                                <span class="font-body text-on-surface">Early Beta Feature Access</span>
+                            </div>
+                        </div>
+                    </div><a href="joiningform1999.html">
+                        <button
+                            class="w-full py-5 kinetic-gradient text-on-primary-fixed font-headline font-bold text-lg rounded-xl transition-all active:scale-95 relative z-10">
+                            Elevate My Career
+                        </button></a>
+                </div>
+            </div>
+        </div>
+        <!-- Value Proposition Section -->
+        <section class="mt-32 grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="space-y-4">
+                <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">rocket_launch</span>
+                </div>
+                <h4 class="font-headline text-xl font-bold">Velocity Metrics</h4>
+                <p class="text-on-surface-variant font-body leading-relaxed">
+                    Track your growth with granular analytics that visualize your path to senior engineering roles.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">api</span>
+                </div>
+                <h4 class="font-headline text-xl font-bold">Real-world Env</h4>
+                <p class="text-on-surface-variant font-body leading-relaxed">
+                    Solve problems in a production-grade containerized environment that mimics real FAANG setups.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-tertiary">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield</span>
+                </div>
+                <h4 class="font-headline text-xl font-bold">Flow Assurance</h4>
+                <p class="text-on-surface-variant font-body leading-relaxed">
+                    Ad-free, dark-optimized UI designed to keep you in the "Zone" for hours without eye strain.
+                </p>
+            </div>
+        </section>
+        <!-- Comparison Preview (Editorial Style) -->
+        <section class="mt-32 bg-surface-container-low rounded-xl p-12 overflow-hidden relative">
+            <img alt="Cybersecurity hardware close up"
+                class="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-overlay"
+                data-alt="extreme close up of dark metallic circuit board with glowing blue neon lines and data stream visual effects"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFwQmJpzD1mTqytafFRWJWGbrKIhtcMZRuvGAmMnUdSwlSfc2OqEP6-_BvY2ytPe73UZiLXQbfwaqwr0xE8OhyrcRplMUQsI7JTIpILO_vbntJb8i3Qs_DBocB-AEwERb-5SShNJ5jZ7u_Vk1Puw5OlzwvXC7Eey8wIXc9-12ZYHxLcDFLp3zXpsxA5k5ITBTyWBSrii2QTD21kGYKXkDs7ZqvPRm8tfVH6I6-sc8xzo5jPeVAg8B_040LTk2V7yveZkkcU8vdlPxJ" />
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="max-w-md">
+                    <h2 class="font-headline text-3xl font-bold mb-4">Ready to commit to your future?</h2>
+                    <p class="text-on-surface-variant font-body">The Yearly plan isn't just about saving money—it's a
+                        psychological commitment to becoming a top 1% engineer.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="comparedetailes.html">
+                        <button
+                            class="bg-surface-container-highest px-8 py-4 rounded-xl font-label text-[0.6875rem] uppercase tracking-widest border border-outline-variant/15 hover:bg-surface-bright transition-all">
+                            Compare Details
+                        </button></a>
+                    <a href="pricing.html">
+                        <button
+                            class="kinetic-gradient px-8 py-4 rounded-xl font-label text-[0.6875rem] uppercase tracking-widest text-on-primary-fixed font-bold shadow-xl">
+                            Go Yearly
+                        </button></a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-[#060e20] w-full border-t border-[#40485d]/15">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center px-12 py-10 w-full font-label text-[0.6875rem] uppercase tracking-[0.05em]">
+            <div class="text-lg font-black text-white mb-6 md:mb-0">GoStreak</div>
+            <div class="flex flex-wrap justify-center gap-8 mb-6 md:mb-0">
+                <a class="text-slate-500 hover:text-[#ffb155] transition-colors" href="index.html">Home</a>
+                <a class="text-slate-500 hover:text-[#ffb155] transition-colors" href="termesconditions.html">Terms &
+                    Conditions</a>
+            </div>
+            <div class="text-slate-500">© 2024 GoStreak. Fuel your flow state.</div>
+        </div>
+    </footer>
+</body>
+
+</html>
