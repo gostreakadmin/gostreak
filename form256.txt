@@ -1,0 +1,56 @@
+Prepare the Google Sheet
+Create a new Google Sheet.
+
+In the first row (Row 1), enter these headers exactly as written:
+name, email, leetcode_user, leetcode_pass, reference_id, transaction_id, language, contact, payment_proof
+
+Step 2: Create the Apps Script
+In your sheet, go to Extensions > Apps Script.
+
+Replace the default code with this "Architected" script that handles both text and file binary conversion:
+
+JavaScript
+
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var folder = DriveApp.getRootFolder(); // Images save to your main Drive folder
+    
+    // 1. Process the Image File
+    var data = Utilities.base64Decode(e.parameter.image_data);
+    var blob = Utilities.newBlob(data, e.parameter.image_type, e.parameter.image_name);
+    var file = folder.createFile(blob);
+    var fileUrl = file.getUrl();
+
+    // 2. Map Form Data to Sheet Headers
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var nextRow = sheet.getLastRow() + 1;
+    var newRow = [];
+
+    for (var i = 0; i < headers.length; i++) {
+      var header = headers[i];
+      if (header === "payment_proof") {
+        newRow.push(fileUrl); // Save the Google Drive link in the sheet
+      } else {
+        newRow.push(e.parameter[header] || "");
+      }
+    }
+
+    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+
+    return ContentService.createTextOutput(JSON.stringify({"result":"success"}))
+           .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({"result":"error", "error": error.toString()}))
+           .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+
+Click Deploy > New Deployment.
+
+Select Web App, set "Execute as" to Me, and "Who has access" to Anyone.
+
+Copy the Web App URL.
