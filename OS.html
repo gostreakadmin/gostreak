@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download ZIP</title>
+    <style>
+        /* Centers the button in the middle of the screen */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Styles the link to look like a button */
+        .download-btn {
+            padding: 16px 32px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: #28a745;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 
+      - href: Path to your ZIP file (e.g., "files/my-data.zip")
+      - download: The name the file will have when saved (optional)
+    -->
+    <a href="OSLAB.zip" download="Archive.zip" class="download-btn">
+        Download ZIP File
+    </a>
+
+</body>
+</html>
