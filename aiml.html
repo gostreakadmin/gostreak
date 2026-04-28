@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download AIML Resources</title>
+    <style>
+        /* Modern Reset and Layout */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        /* Container for the button */
+        .download-container {
+            text-align: center;
+        }
+
+        /* Styling the Download Button */
+        .btn-download {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        /* Hover Effects */
+        .btn-download:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-download:active {
+            transform: translateY(0);
+        }
+
+        p {
+            color: #666;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="download-container">
+        <h1>AIML Resources</h1>
+        <a href="aiml.zip" download="aiml.zip" class="btn-download">
+            Download aiml.zip
+        </a>
+        <p>Click the button above to start your download.</p>
+    </div>
+
+</body>
+</html>
